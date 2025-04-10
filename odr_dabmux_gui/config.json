@@ -1,0 +1,104 @@
+{
+  "_comment": "Generated at 2025-04-08T22:33:26.624Z by odr-dabmux-gui",
+  "components": {
+    "comp-01": {
+      "service": "srv-01",
+      "subchannel": "sub-01",
+      "user-applications": {
+        "userapp": "slideshow"
+      }
+    },
+    "time": {
+      "service": "srv-02",
+      "subchannel": "sub-02",
+      "user-applications": {
+        "userapp": "slideshow"
+      }
+    }
+  },
+  "ensemble": {
+    "ecc": 225,
+    "id": 24575,
+    "label": "OpenDigitalRadio",
+    "local-time-offset": "auto",
+    "reconfig-counter": "hash",
+    "shortlabel": "ODR"
+  },
+  "general": {
+    "dabmode": 1,
+    "managementport": 12720,
+    "nbframes": 0,
+    "syslog": false,
+    "tist": true,
+    "tist_offset": 0
+  },
+  "outputs": {
+    "edi": {
+      "destinations": {
+        "udp multicast": {
+          "protocol": "udp",
+          "destination": "224.3.3.3",
+          "port": 8000,
+          "source": "192.168.1.1",
+          "sourceport": 13000,
+          "ttl": 1
+        },
+        "udp unicast": {
+          "protocol": "tcp",
+          "listenport": 8951
+        },
+        "tcp": {
+          "protocol": "tcp",
+          "listenport": 8951
+        }
+      }
+    },
+    "throttle": "simul://",
+    "zeromq": {
+      "allowmetadata": false,
+      "endpoint": "tcp://*:9350"
+    }
+  },
+  "remotecontrol": {
+    "telnetport": 12721,
+    "zmqendpoint": "tcp://lo:12722"
+  },
+  "services": {
+    "srv-01": {
+      "ecc": 224,
+      "id": 20001,
+      "label": "RADIOGIORNALES",
+      "shortlabel": "RGS"
+    },
+    "srv-02": {
+      "ecc": 224,
+      "id": 20002,
+      "label": "radio time",
+      "shortlabel": "time"
+    }
+  },
+  "subchannels": {
+    "sub-01": {
+      "bitrate": 88,
+      "buffer": 40,
+      "buffer-management": "prebuffering",
+      "id": 1,
+      "inputproto": "edi",
+      "inputuri": "tcp://0.0.0.0:8030",
+      "prebuffering": 20,
+      "protection": 3,
+      "type": "dabplus"
+    },
+    "sub-02": {
+      "bitrate": 88,
+      "buffer": 40,
+      "buffer-management": "prebuffering",
+      "id": 2,
+      "inputproto": "edi",
+      "inputuri": "tcp://0.0.0.0:8030",
+      "prebuffering": 20,
+      "protection": 3,
+      "type": "dabplus"
+    }
+  }
+}

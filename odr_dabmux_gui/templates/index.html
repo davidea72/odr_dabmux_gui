@@ -1,0 +1,852 @@
+<!-- templates/index.html -->
+{% extends "layout.html" %}
+
+{% block content %}
+<ul class="nav nav-tabs" id="configTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab" aria-controls="general" aria-selected="true">Generale</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="ensemble-tab" data-bs-toggle="tab" data-bs-target="#ensemble" type="button" role="tab" aria-controls="ensemble" aria-selected="false">Ensemble</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="outputs-tab" data-bs-toggle="tab" data-bs-target="#outputs" type="button" role="tab" aria-controls="outputs" aria-selected="false">Output</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="components-tab" data-bs-toggle="tab" data-bs-target="#components" type="button" role="tab" aria-controls="components" aria-selected="false">Componenti</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="remotecontrol-tab" data-bs-toggle="tab" data-bs-target="#remotecontrol" type="button" role="tab" aria-controls="remotecontrol" aria-selected="false">Controllo Remoto</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="json-tab" data-bs-toggle="tab" data-bs-target="#json" type="button" role="tab" aria-controls="json" aria-selected="false">JSON</button>
+    </li>
+</ul>
+
+<div class="tab-content" id="configTabsContent">
+    <!-- Tab Generale -->
+    <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+        <h3>Parametri Generali</h3>
+        <form id="generalForm" class="mt-3">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">
+                        DAB Mode
+                        <i class="fas fa-info-circle tooltip-icon" data-bs-toggle="tooltip" title="Modalità DAB (1-4)"></i>
+                    </label>
+                    <input type="number" class="form-control" id="general-dabmode" min="1" max="4">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">
+                        Management Port
+                        <i class="fas fa-info-circle tooltip-icon" data-bs-toggle="tooltip" title="Porta per la gestione - usare stats_dabmux_multi.py"></i>
+                    </label>
+                    <input type="number" class="form-control" id="general-managementport" min="1" max="65535">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">
+                        Nb Frames
+                        <i class="fas fa-info-circle tooltip-icon" data-bs-toggle="tooltip" title="Numero di frame (0 = infinito)"></i>
+                    </label>
+                    <input type="number" class="form-control" id="general-nbframes" min="0">
+                </div>
+                <div class="col-md-6">
+                    <div class="form-check mt-4">
+                        <input class="form-check-input" type="checkbox" id="general-syslog">
+                        <label class="form-check-label" for="general-syslog">
+                            Usa Syslog
+                            <i class="fas fa-info-circle tooltip-icon" data-bs-toggle="tooltip" title="Abilita log su syslog"></i>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="general-tist">
+                        <label class="form-check-label" for="general-tist">
+                            TIST
+                            <i class="fas fa-info-circle tooltip-icon" data-bs-toggle="tooltip" title="Timestamp inserito (Per reti SFN)"></i>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">
+                        TIST Offset
+                        <i class="fas fa-info-circle tooltip-icon" data-bs-toggle="tooltip" title="Offset per il timestamp"></i>
+                    </label>
+                    <input type="number" class="form-control" id="general-tist_offset">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Tab Ensemble -->
+    <div class="tab-pane fade" id="ensemble" role="tabpanel" aria-labelledby="ensemble-tab">
+        <h3>Parametri Ensemble</h3>
+        <form id="ensembleForm" class="mt-3">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">
+                        ECC
+                        <i class="fas fa-info-circle tooltip-icon" data-bs-toggle="tooltip" title="Extended Country Code"></i>
+                    </label>
+                    <input type="number" class="form-control" id="ensemble-ecc" min="0" max="255">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">
+                        ID
+                        <i class="fas fa-info-circle tooltip-icon" data-bs-toggle="tooltip" title="Identificativo ensemble"></i>
+                    </label>
+                    <input type="number" class="form-control" id="ensemble-id" min="0" max="65535">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">
+                        Label
+                        <i class="fas fa-info-circle tooltip-icon" data-bs-toggle="tooltip" title="Etichetta completa (max 16 caratteri)"></i>
+                    </label>
+                    <input type="text" class="form-control" id="ensemble-label" maxlength="16">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">
+                        Short Label
+                        <i class="fas fa-info-circle tooltip-icon" data-bs-toggle="tooltip" title="Etichetta breve (max 8 caratteri)"></i>
+                    </label>
+                    <input type="text" class="form-control" id="ensemble-shortlabel" maxlength="8">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">
+                        Local Time Offset
+                        <i class="fas fa-info-circle tooltip-icon" data-bs-toggle="tooltip" title="Offset dell'ora locale (auto o valore)"></i>
+                    </label>
+                    <input type="text" class="form-control" id="ensemble-local-time-offset">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">
+                        Reconfig Counter
+                        <i class="fas fa-info-circle tooltip-icon" data-bs-toggle="tooltip" title="Contatore riconfigurazione (hash o numero)"></i>
+                    </label>
+                    <input type="text" class="form-control" id="ensemble-reconfig-counter">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Tab Outputs -->
+    <div class="tab-pane fade" id="outputs" role="tabpanel" aria-labelledby="outputs-tab">
+        <h3>Configurazione Output</h3>
+        
+        <!-- ZeroMQ -->
+        <div class="card mb-3">
+            <div class="card-header">ZeroMQ</div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-8">
+                        <label class="form-label">
+                            Endpoint
+                            <i class="fas fa-info-circle tooltip-icon" data-bs-toggle="tooltip" title="Endpoint ZeroMQ"></i>
+                        </label>
+                        <input type="text" class="form-control" id="zeromq-endpoint">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check mt-4">
+                            <input class="form-check-input" type="checkbox" id="zeromq-allowmetadata">
+                            <label class="form-check-label" for="zeromq-allowmetadata">
+                                Allow Metadata
+                                <i class="fas fa-info-circle tooltip-icon" data-bs-toggle="tooltip" title="Consenti metadati"></i>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Throttle -->
+        <div class="card mb-3">
+            <div class="card-header">Throttle</div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label class="form-label">
+                            URI
+                            <i class="fas fa-info-circle tooltip-icon" data-bs-toggle="tooltip" title="URI per throttle"></i>
+                        </label>
+                        <input type="text" class="form-control" id="outputs-throttle">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- EDI Destinations -->
+        <div class="card mb-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>EDI Destinations</span>
+                <button class="btn btn-sm btn-primary" id="add-edi-destination">Aggiungi Destinazione</button>
+            </div>
+            <div class="card-body">
+                <div id="edi-destinations-container">
+                    <!-- Destinations will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Components -->
+    <div class="tab-pane fade" id="components" role="tabpanel" aria-labelledby="components-tab">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3>Componenti, Servizi e Subcanali</h3>
+            <button class="btn btn-primary" id="add-component">Aggiungi Componente</button>
+        </div>
+        
+        <ul class="nav nav-pills mb-3" id="components-tabs" role="tablist">
+            <!-- Component tabs will be added here -->
+        </ul>
+        
+        <div class="tab-content" id="components-content">
+            <!-- Component content will be added here -->
+        </div>
+    </div>
+
+    <!-- Tab Remote Control -->
+    <div class="tab-pane fade" id="remotecontrol" role="tabpanel" aria-labelledby="remotecontrol-tab">
+        <h3>Controllo Remoto</h3>
+        <form id="remotecontrolForm" class="mt-3">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">
+                        Telnet Port
+                        <i class="fas fa-info-circle tooltip-icon" data-bs-toggle="tooltip" title="Porta Telnet per controllo remoto"></i>
+                    </label>
+                    <input type="number" class="form-control" id="remotecontrol-telnetport" min="1" max="65535">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">
+                        ZMQ Endpoint
+                        <i class="fas fa-info-circle tooltip-icon" data-bs-toggle="tooltip" title="Endpoint ZeroMQ per controllo remoto"></i>
+                    </label>
+                    <input type="text" class="form-control" id="remotecontrol-zmqendpoint">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Tab JSON -->
+    <div class="tab-pane fade" id="json" role="tabpanel" aria-labelledby="json-tab">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3>Configurazione JSON</h3>
+            <div>
+                <button class="btn btn-success me-2" id="save-config">Salva Configurazione</button>
+                <button class="btn btn-danger" id="restart-daemon">Riavvia odr-dabmux</button>
+            </div>
+        </div>
+        <div class="alert alert-info">
+            Qui puoi visualizzare e modificare direttamente il JSON completo della configurazione.
+        </div>
+        <textarea class="form-control json-editor" id="json-editor"></textarea>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+//aggiunge event listener
+document.getElementById('json-tab').addEventListener('click', function() {
+    // Codice to execute when the button is clicked
+        updateJsonFromForms();
+        collectEdiDestinations();
+        collectComponentsData();
+	updateJsonEditor();
+	console.log("catturato evento pressione json");
+});
+
+// Configurazione attuale
+let config = {{ config|tojson }};
+
+// Inizializza tooltip
+$(function () {
+    $('[data-bs-toggle="tooltip"]').tooltip();
+});
+
+// Funzione per aggiornare il JSON editor
+function updateJsonEditor() {
+    $('#json-editor').val(JSON.stringify(config, null, 2));
+}
+
+// Funzione per aggiornare i form dai dati JSON
+function updateFormsFromJson() {
+    // Aggiorna form General
+    $('#general-dabmode').val(config.general.dabmode);
+    $('#general-managementport').val(config.general.managementport);
+    $('#general-nbframes').val(config.general.nbframes);
+    $('#general-syslog').prop('checked', config.general.syslog);
+    $('#general-tist').prop('checked', config.general.tist);
+    $('#general-tist_offset').val(config.general.tist_offset);
+    
+    // Aggiorna form Ensemble
+    $('#ensemble-ecc').val(config.ensemble.ecc);
+    $('#ensemble-id').val(config.ensemble.id);
+    $('#ensemble-label').val(config.ensemble.label);
+    $('#ensemble-shortlabel').val(config.ensemble.shortlabel);
+    $('#ensemble-local-time-offset').val(config.ensemble["local-time-offset"]);
+    $('#ensemble-reconfig-counter').val(config.ensemble["reconfig-counter"]);
+    
+    // Aggiorna form Outputs
+    $('#zeromq-endpoint').val(config.outputs.zeromq.endpoint);
+    $('#zeromq-allowmetadata').prop('checked', config.outputs.zeromq.allowmetadata);
+    $('#outputs-throttle').val(config.outputs.throttle);
+    
+    // Aggiorna EDI Destinations
+    $('#edi-destinations-container').empty();
+    for (const [key, dest] of Object.entries(config.outputs.edi.destinations)) {
+        addEdiDestination(key, dest);
+    }
+    
+    // Aggiorna form Remote Control
+    $('#remotecontrol-telnetport').val(config.remotecontrol.telnetport);
+    $('#remotecontrol-zmqendpoint').val(config.remotecontrol.zmqendpoint);
+    
+    // Aggiorna componenti
+    renderComponents();
+    
+    // Aggiorna JSON editor
+    updateJsonEditor();
+}
+
+// Funzione per aggiornare i dati JSON dai form
+function updateJsonFromForms() {
+    // Aggiorna General
+    config.general.dabmode = parseInt($('#general-dabmode').val());
+    config.general.managementport = parseInt($('#general-managementport').val());
+    config.general.nbframes = parseInt($('#general-nbframes').val());
+    config.general.syslog = $('#general-syslog').is(':checked');
+    config.general.tist = $('#general-tist').is(':checked');
+    config.general.tist_offset = parseInt($('#general-tist_offset').val());
+    
+    // Aggiorna Ensemble
+    config.ensemble.ecc = parseInt($('#ensemble-ecc').val());
+    config.ensemble.id = parseInt($('#ensemble-id').val());
+    config.ensemble.label = $('#ensemble-label').val();
+    config.ensemble.shortlabel = $('#ensemble-shortlabel').val();
+    config.ensemble["local-time-offset"] = $('#ensemble-local-time-offset').val();
+    config.ensemble["reconfig-counter"] = $('#ensemble-reconfig-counter').val();
+    
+    // Aggiorna Outputs
+    config.outputs.zeromq.endpoint = $('#zeromq-endpoint').val();
+    config.outputs.zeromq.allowmetadata = $('#zeromq-allowmetadata').is(':checked');
+    config.outputs.throttle = $('#outputs-throttle').val();
+    
+    // Aggiorna Remote Control
+    config.remotecontrol.telnetport = parseInt($('#remotecontrol-telnetport').val());
+    config.remotecontrol.zmqendpoint = $('#remotecontrol-zmqendpoint').val();
+    
+    // Aggiorna JSON editor
+    updateJsonEditor();
+}
+
+// Funzione per aggiungere una destinazione EDI
+function addEdiDestination(name = '', dest = {}) {
+    const isNew = name === '';
+    if (isNew) {
+        name = "edi-dest-"+prompt("Please enter a destination name", "unicast_udp").replace(" ","_");
+
+//'dest-' + Math.floor(Math.random() * 1000);
+        dest = {
+            destination: '',
+            port: 8000,
+            protocol: 'udp',
+            source: '',
+            sourceport: 13000,
+            ttl: 1
+        };
+    }
+    
+    const destinationId = `${name.replace(/[^a-z0-9]/gi, '-')}`;
+    const destHtml = `
+        <div class="card mb-3 edi-destination" data-name="${name}">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <input type="text" class="form-control w-50 destination-name" value="${name}" placeholder="Nome destinazione">
+                <button class="btn btn-sm btn-danger remove-destination">Rimuovi</button>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Protocollo</label>
+                        <select class="form-select destination-protocol">
+			    <option value="seleziona un protocollo" ${dest.protocol === 'vuoto' ? 'selected' : ''}>seleziona un protocollo</option>
+                            <option value="udp multicast" ${dest.protocol === 'udp' ? '' : 'selected'}>UDP Multicast</option>
+                            <option value="udp unicast" ${dest.protocol === 'udp' ? '' : 'selected'}>UDP Unicast</option>
+                            <option value="tcp" ${dest.protocol === 'tcp' ? 'selected' : ''}>TCP</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="udp-multicast-fields" ${dest.protocol === 'tcp' ? '' : 'style="display:none"'}>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Destination</label>
+                            <input type="text" class="form-control destination-destination" value="${dest.destination || ''}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Port</label>
+                            <input type="number" class="form-control destination-port" value="${dest.port || 8000}" min="1" max="65535">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Source</label>
+                            <input type="text" class="form-control destination-source" value="${dest.source || ''}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Source Port</label>
+                            <input type="number" class="form-control destination-sourceport" value="${dest.sourceport || 13000}" min="1" max="65535">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">TTL</label>
+                            <input type="number" class="form-control destination-ttl" value="${dest.ttl || 1}" min="1" max="255">
+                        </div>
+                    </div>
+                </div>
+               <div class="udp-unicast-fields" ${dest.protocol === 'udp' ? '' : 'style="display:none"'}>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Port</label>
+                            <input type="number" class="form-control destination-port" value="${dest.port || 8000}" min="1" max="65535">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Source Port</label>
+                            <input type="number" class="form-control destination-sourceport" value="${dest.sourceport || 13000}" min="1" max="65535">
+                        </div>
+                    </div>
+                </div>
+                <div class="tcp-fields" ${dest.protocol === 'tcp' ? '' : 'style="display:none"' }>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Listen Port</label>
+                            <input type="number" class="form-control destination-listenport" value="${dest.listenport || 8951}" min="1" max="65535">
+                        </div>
+                    </div>
+                </div>
+               <div class="vuoto-fields" ${dest.protocol === 'vuoto' ? '' : 'style="display:none"'}>
+                </div>
+
+            </div>
+        </div>
+    `;
+    
+    $('#edi-destinations-container').append(destHtml);
+    
+    // Gestisci cambio di protocollo
+
+    $('.destination-protocol').last().change(function() {
+        const protocol = $(this).val();
+        const card = $(this).closest('.edi-destination');
+            card.find('.udp-multicast-fields').hide();
+            card.find('.udp-unicast-fields').hide();
+            card.find('.tcp-fields').hide();
+
+        if (protocol === 'udp multicast') {
+            card.find('.udp-multicast-fields').show();
+            card.find('.udp-unicast-fields').hide();
+            card.find('.tcp-fields').hide();
+        } else if (protocol === 'udp unicast'){
+            card.find('.udp-multicast-fields').hide();
+            card.find('.udp-unicast-fields').show();
+            card.find('.tcp-fields').hide();
+        } else {
+            card.find('.udp-multicast-fields').hide();
+            card.find('.udp-unicast-fields').hide();
+            card.find('.tcp-fields').show();
+        }
+    });
+    
+    // Gestisci rimozione della destinazione
+    $('.remove-destination').last().click(function() {
+        const card = $(this).closest('.edi-destination');
+        
+const name = card.data('name');
+        delete config.outputs.edi.destinations[name];
+        card.remove();
+        updateJsonEditor();
+    });
+}
+
+// Funzione per raccogliere i dati delle destinazioni EDI
+function collectEdiDestinations() {
+	console.log("dentro collectEdiDestinations")
+    const destinations = {};
+    $('.edi-destination').each(function() {
+        const oldName = $(this).data('name');
+        const newName = $(this).find('.destination-name').val();
+        const protocol = $(this).find('.destination-protocol').val();
+    console.log(oldName);
+    console.log(newName)
+        
+        let destData = {
+                    protocol : "tcp"
+                };
+
+        if (protocol === 'udp multicast') {
+                destData.protocol = "udp"
+             }
+            else if (protocol === 'udp unicast') {
+                    destData.protocol = "udp"
+            }
+        
+        
+        if (protocol === 'udp multicast') {
+            destData.destination = $(this).find('.destination-destination').val();
+            destData.port = parseInt($(this).find('.destination-port').val());
+            destData.source = $(this).find('.destination-source').val();
+            destData.sourceport = parseInt($(this).find('.destination-sourceport').val());
+            destData.ttl = parseInt($(this).find('.destination-ttl').val());
+        } else if (protocol === 'udp unicast') {
+            destData.source = $(this).find('.destination-source-tcp').val();
+            destData.listenport = parseInt($(this).find('.destination-listenport').val());
+        } else {
+            destData.listenport = parseInt($(this).find('.destination-listenport').val());
+
+        }
+        
+        destinations[newName] = destData;
+        $(this).data('name', newName);
+    });
+    
+    config.outputs.edi.destinations = destinations;
+}
+
+// Funzione per renderizzare i componenti
+function renderComponents() {
+    $('#components-tabs').empty();
+    $('#components-content').empty();
+    
+    // Aggiungi tab per ogni componente
+    let firstTab = true;
+    for (const [compKey, comp] of Object.entries(config.components)) {
+        const serviceKey = comp.service;
+        const subchannelKey = comp.subchannel;
+        const service = config.services[serviceKey] || {};
+        const subchannel = config.subchannels[subchannelKey] || {};
+        
+        const tabId = `comp-tab-${compKey}`;
+        const contentId = `comp-content-${compKey}`;
+        
+        // Aggiungi tab
+        $('#components-tabs').append(`
+            <li class="nav-item" role="presentation">
+                <button class="nav-link ${firstTab ? 'active' : ''}" id="${tabId}" data-bs-toggle="pill" 
+                        data-bs-target="#${contentId}" type="button" role="tab" 
+                        aria-controls="${contentId}" aria-selected="${firstTab ? 'true' : 'false'}">
+                    ${compKey}
+                </button>
+            </li>
+        `);
+        
+        // Aggiungi contenuto del tab
+        $('#components-content').append(`
+            <div class="tab-pane fade ${firstTab ? 'show active' : ''}" id="${contentId}" role="tabpanel" aria-labelledby="${tabId}">
+                <div class="component-editor" data-component="${compKey}">
+                    <div class="d-flex justify-content-end mb-3">
+                        <button class="btn btn-danger remove-component" data-component="${compKey}">Rimuovi Componente</button>
+                    </div>
+                    
+                    <h4>Componente: ${compKey}</h4>
+                    <div class="mb-3">
+                        <label class="form-label">User Application</label>
+                        <input type="text" class="form-control comp-userapp" value="${comp['user-applications']?.userapp || ''}">
+                    </div>
+                    
+                    <hr>
+                    
+                    <h4>Servizio: ${serviceKey}</h4>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Service ID</label>
+                            <input type="number" class="form-control srv-id" value="${service.id || 0}" min="0" max="65535">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">ECC</label>
+                            <input type="number" class="form-control srv-ecc" value="${service.ecc || 0}" min="0" max="255">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Label</label>
+                            <input type="text" class="form-control srv-label" value="${service.label || ''}" maxlength="16">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Short Label</label>
+                            <input type="text" class="form-control srv-shortlabel" value="${service.shortlabel || ''}" maxlength="8">
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h4>Subcanale: ${subchannelKey}</h4>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Subcanale ID</label>
+                            <input type="number" class="form-control sub-id" value="${subchannel.id || 0}" min="0" max="63">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Type</label>
+                            <select class="form-select sub-type">
+                                <option value="dabplus" ${subchannel.type === 'dabplus' ? 'selected' : ''}>DAB+</option>
+                                <option value="dab" ${subchannel.type === 'dab' ? 'selected' : ''}>DAB</option>
+                                <option value="data" ${subchannel.type === 'data' ? 'selected' : ''}>Data</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Bitrate (kbps)</label>
+                            <input type="number" class="form-control sub-bitrate" value="${subchannel.bitrate || 0}" min="0" max="384">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Protection</label>
+                            <select class="form-select sub-protection">
+                                <option value="1" ${subchannel.protection === 1 ? 'selected' : ''}>1</option>
+                                <option value="2" ${subchannel.protection === 2 ? 'selected' : ''}>2</option>
+                                <option value="3" ${subchannel.protection === 3 ? 'selected' : ''}>3</option>
+                                <option value="4" ${subchannel.protection === 4 ? 'selected' : ''}>4</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Input Protocol</label>
+                            <select class="form-select sub-inputproto">
+                                <option value="edi" ${subchannel.inputproto === 'edi' ? 'selected' : ''}>EDI</option>
+                                <option value="file" ${subchannel.inputproto === 'file' ? 'selected' : ''}>File</option>
+                                <option value="zmq" ${subchannel.inputproto === 'zmq' ? 'selected' : ''}>ZeroMQ</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Input URI</label>
+                            <input type="text" class="form-control sub-inputuri" value="${subchannel.inputuri || ''}">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Buffer</label>
+                            <input type="number" class="form-control sub-buffer" value="${subchannel.buffer || 0}" min="0">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Buffer Management</label>
+                            <select class="form-select sub-buffer-management">
+                                <option value="prebuffering" ${subchannel['buffer-management'] === 'prebuffering' ? 'selected' : ''}>Prebuffering</option>
+                                <option value="sliding" ${subchannel['buffer-management'] === 'sliding' ? 'selected' : ''}>Sliding</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Prebuffering</label>
+                            <input type="number" class="form-control sub-prebuffering" value="${subchannel.prebuffering || 0}" min="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `);
+        
+        firstTab = false;
+    }
+    
+    // Gestisci rimozione del componente
+    $('.remove-component').click(function() {
+        const compKey = $(this).data('component');
+        const comp = config.components[compKey];
+        
+        // Ottieni chiavi del servizio e subcanale
+        const serviceKey = comp.service;
+        const subchannelKey = comp.subchannel;
+        
+        // Rimuovi componente, servizio e subcanale
+        delete config.components[compKey];
+        delete config.services[serviceKey];
+        delete config.subchannels[subchannelKey];
+        
+        // Aggiorna l'interfaccia
+        renderComponents();
+        updateJsonEditor();
+    });
+}
+
+// Funzione per raccogliere i dati dei componenti
+function collectComponentsData() {
+    $('.component-editor').each(function() {
+        const compKey = $(this).data('component');
+        const comp = config.components[compKey] || {};
+        
+        // Aggiorna dati del componente
+        comp['user-applications'] = {
+            userapp: $(this).find('.comp-userapp').val()
+        };
+        
+        // Aggiorna dati del servizio
+        const serviceKey = comp.service;
+        if (serviceKey && config.services[serviceKey]) {
+            config.services[serviceKey].id = parseInt($(this).find('.srv-id').val());
+            config.services[serviceKey].ecc = parseInt($(this).find('.srv-ecc').val());
+            config.services[serviceKey].label = $(this).find('.srv-label').val();
+            config.services[serviceKey].shortlabel = $(this).find('.srv-shortlabel').val();
+        }
+        
+        // Aggiorna dati del subcanale
+        const subchannelKey = comp.subchannel;
+        if (subchannelKey && config.subchannels[subchannelKey]) {
+            config.subchannels[subchannelKey].id = parseInt($(this).find('.sub-id').val());
+            config.subchannels[subchannelKey].type = $(this).find('.sub-type').val();
+            config.subchannels[subchannelKey].bitrate = parseInt($(this).find('.sub-bitrate').val());
+            config.subchannels[subchannelKey].protection = parseInt($(this).find('.sub-protection').val());
+            config.subchannels[subchannelKey].inputproto = $(this).find('.sub-inputproto').val();
+            config.subchannels[subchannelKey].inputuri = $(this).find('.sub-inputuri').val();
+            config.subchannels[subchannelKey].buffer = parseInt($(this).find('.sub-buffer').val());
+            config.subchannels[subchannelKey]['buffer-management'] = $(this).find('.sub-buffer-management').val();
+            config.subchannels[subchannelKey].prebuffering = parseInt($(this).find('.sub-prebuffering').val());
+        }
+    });
+}
+
+// Funzione per aggiungere un nuovo componente
+function addNewComponent() {
+    // Genera nuovi ID per componente, servizio e subcanale
+    const componentCount = Object.keys(config.components).length + 1;
+    const compKey = prompt("Please enter a radio name", "RADIO GIULIA").replace(" ","_");
+    //const compKey = `comp-${String(componentCount).padStart(2, '0')}`;
+    const serviceKey = `srv-${String(componentCount).padStart(2, '0')}`;
+    const subchannelKey = `sub-${String(componentCount).padStart(2, '0')}`;
+    
+    // Crea nuovo componente
+    config.components[compKey] = {
+        service: serviceKey,
+        subchannel: subchannelKey,
+        'user-applications': {
+            userapp: "slideshow"
+        }
+    };
+    
+    // Crea nuovo servizio
+    config.services[serviceKey] = {
+        ecc: 224,
+        id: 20000 + componentCount,
+        label: `Service ${componentCount}`,
+        shortlabel: `SRV${componentCount}`
+    };
+    
+    // Crea nuovo subcanale
+    config.subchannels[subchannelKey] = {
+        bitrate: 88,
+        buffer: 40,
+        'buffer-management': "prebuffering",
+        id: componentCount,
+        inputproto: "edi",
+        inputuri: "tcp://0.0.0.0:8030",
+        prebuffering: 20,
+        protection: 3,
+        type: "dabplus"
+    };
+    
+    // Aggiorna l'interfaccia
+    renderComponents();
+    updateJsonEditor();
+    
+    // Attiva il tab del nuovo componente
+    $(`#comp-tab-${compKey}`).tab('show');
+}
+
+// Inizializza l'interfaccia
+$(document).ready(function() {
+    // Carica i dati iniziali nei form
+    updateFormsFromJson();
+    
+    // Gestisci aggiornamenti dai form
+    $('#generalForm, #ensembleForm, #remotecontrolForm').on('change', 'input, select', function() {
+        updateJsonFromForms();
+    });
+    
+    // Gestisci aggiornamenti da ZeroMQ e Throttle
+    $('#zeromq-endpoint, #zeromq-allowmetadata, #outputs-throttle').change(function() {
+        updateJsonFromForms();
+    });
+    
+    // Gestisci aggiornamento del JSON diretto
+    $('#json-editor').on('blur', function() {
+        try {
+            config = JSON.parse($(this).val());
+            updateFormsFromJson();
+        } catch (e) {
+            alert('Errore nel JSON: ' + e.message);
+            updateJsonEditor(); // Ripristina il JSON valido
+        }
+    });
+    
+    // Gestisci aggiunta destinazione EDI
+    $('#add-edi-destination').click(function() {
+        addEdiDestination();
+    });
+    
+    // Gestisci aggiunta componente
+    $('#add-component').click(function() {
+        addNewComponent();
+    });
+    
+    // Gestisci salvataggio della configurazione
+    $('#save-config').click(function() {
+        // Aggiorna tutti i dati dai form
+        updateJsonFromForms();
+        collectEdiDestinations();
+        collectComponentsData();
+        
+        // Aggiorna il timestamp
+        const now = new Date();
+        config._comment = `Generated at ${now.toISOString()} by odr-dabmux-gui`;
+        
+        // Aggiorna il JSON editor
+        updateJsonEditor();
+        
+        // Invia la configurazione al server
+        $.ajax({
+            url: '/save_config',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(config),
+            success: function(response) {
+                if (response.success) {
+                    alert('Configurazione salvata con successo!');
+                } else {
+                    alert('Errore nel salvataggio: ' + response.error);
+                }
+            },
+            error: function() {
+                alert('Errore di connessione al server');
+            }
+        });
+    });
+    
+    // Gestisci riavvio del demone
+    $('#restart-daemon').click(function() {
+        if (confirm('Sei sicuro di voler riavviare il demone odr-dabmux?')) {
+            $.ajax({
+                url: '/restart_daemon',
+                type: 'POST',
+                success: function(response) {
+                    if (response.success) {
+                        alert('Demone riavviato con successo!');
+                    } else {
+                        alert('Errore nel riavvio: ' + response.error);
+                    }
+                },
+                error: function() {
+                    alert('Errore di connessione al server');
+                }
+            });
+        }
+    });
+});
+</script>
+{% endblock %}

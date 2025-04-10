@@ -1,0 +1,47 @@
+<!-- templates/layout.html -->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ODR-DABmux Manager</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .tooltip-icon {
+            margin-left: 5px;
+            color: #007bff;
+            cursor: help;
+        }
+        .tab-pane {
+            padding: 20px;
+        }
+        .json-editor {
+            height: 500px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">ODR-DABmux Manager</a>
+            <div class="navbar-nav ms-auto">
+                {% if session.username %}
+                <span class="nav-item nav-link">Benvenuto, {{ session.username }}</span>
+                <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

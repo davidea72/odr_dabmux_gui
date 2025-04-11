@@ -9,8 +9,8 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 # Percorsi dei file di configurazione
-CONFIG_FILE = '/home/davidea/odr_dabmux_gui2/config.json'
-USERS_FILE = '/home/davidea/odr_dabmux_gui2/odr_gui_users.json'
+CONFIG_FILE = 'config.json'
+USERS_FILE = 'odr_gui_users.json'
 
 # Funzione per caricare il file di configurazione
 def load_config():

@@ -1,6 +1,13 @@
 {
-  "_comment": "Generated at 2025-04-08T22:33:26.624Z by odr-dabmux-gui",
+  "_comment": "Generated at 2025-04-17T09:31:30.778Z by odr-dabmux-gui",
   "components": {
+    "RADIO_GIULIA": {
+      "service": "srv-03",
+      "subchannel": "sub-03",
+      "user-applications": {
+        "userapp": "slideshow"
+      }
+    },
     "comp-01": {
       "service": "srv-01",
       "subchannel": "sub-01",
@@ -11,6 +18,13 @@
     "time": {
       "service": "srv-02",
       "subchannel": "sub-02",
+      "user-applications": {
+        "userapp": "slideshow"
+      }
+    },
+    "RADIO_GIULIA2": {
+      "service": "srv-04",
+      "subchannel": "sub-04",
       "user-applications": {
         "userapp": "slideshow"
       }
@@ -35,19 +49,15 @@
   "outputs": {
     "edi": {
       "destinations": {
-        "udp multicast": {
-          "protocol": "udp",
-          "destination": "224.3.3.3",
-          "port": 8000,
-          "source": "192.168.1.1",
-          "sourceport": 13000,
-          "ttl": 1
-        },
-        "udp unicast": {
+        "tcp": {
           "protocol": "tcp",
           "listenport": 8951
         },
-        "tcp": {
+        "udp multicast": {
+          "protocol": "tcp",
+          "listenport": 8951
+        },
+        "udp unicast": {
           "protocol": "tcp",
           "listenport": 8951
         }
@@ -65,16 +75,28 @@
   },
   "services": {
     "srv-01": {
-      "ecc": 224,
-      "id": 20001,
+      "ecc": "224",
+      "id": "20001",
       "label": "RADIOGIORNALES",
       "shortlabel": "RGS"
     },
     "srv-02": {
-      "ecc": 224,
-      "id": 20002,
+      "ecc": "224",
+      "id": "20002",
       "label": "radio time",
       "shortlabel": "time"
+    },
+    "srv-03": {
+      "ecc": "224",
+      "id": "0x2221",
+      "label": "Service 3",
+      "shortlabel": "SRV3"
+    },
+    "srv-04": {
+      "ecc": "0x224",
+      "id": "0x2005",
+      "label": "Service 4",
+      "shortlabel": "SRV4"
     }
   },
   "subchannels": {
@@ -94,6 +116,28 @@
       "buffer": 40,
       "buffer-management": "prebuffering",
       "id": 2,
+      "inputproto": "edi",
+      "inputuri": "tcp://0.0.0.0:8030",
+      "prebuffering": 20,
+      "protection": 3,
+      "type": "dabplus"
+    },
+    "sub-03": {
+      "bitrate": 88,
+      "buffer": 40,
+      "buffer-management": "prebuffering",
+      "id": 3,
+      "inputproto": "edi",
+      "inputuri": "tcp://0.0.0.0:8030",
+      "prebuffering": 20,
+      "protection": 3,
+      "type": "dabplus"
+    },
+    "sub-04": {
+      "bitrate": 88,
+      "buffer": 40,
+      "buffer-management": "prebuffering",
+      "id": 4,
       "inputproto": "edi",
       "inputuri": "tcp://0.0.0.0:8030",
       "prebuffering": 20,

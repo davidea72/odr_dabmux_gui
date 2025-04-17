@@ -570,11 +570,11 @@ function renderComponents() {
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="form-label">Service ID</label>
-                            <input type="number" class="form-control srv-id" value="${service.id || 0}" min="0" max="65535">
+                            <input type="text" class="form-control srv-id" value="${service.id || "0x"}">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">ECC</label>
-                            <input type="number" class="form-control srv-ecc" value="${service.ecc || 0}" min="0" max="255">
+                            <input type="text" class="form-control srv-ecc" value="${service.ecc || "0x"}">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -690,8 +690,8 @@ function collectComponentsData() {
         // Aggiorna dati del servizio
         const serviceKey = comp.service;
         if (serviceKey && config.services[serviceKey]) {
-            config.services[serviceKey].id = parseInt($(this).find('.srv-id').val());
-            config.services[serviceKey].ecc = parseInt($(this).find('.srv-ecc').val());
+            config.services[serviceKey].id = $(this).find('.srv-id').val();
+            config.services[serviceKey].ecc = $(this).find('.srv-ecc').val();
             config.services[serviceKey].label = $(this).find('.srv-label').val();
             config.services[serviceKey].shortlabel = $(this).find('.srv-shortlabel').val();
         }
@@ -732,8 +732,8 @@ function addNewComponent() {
     
     // Crea nuovo servizio
     config.services[serviceKey] = {
-        ecc: 224,
-        id: 20000 + componentCount,
+        ecc: "0x224",
+        id: "0x200" + componentCount.toString(16),
         label: `Service ${componentCount}`,
         shortlabel: `SRV${componentCount}`
     };

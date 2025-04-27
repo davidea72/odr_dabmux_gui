@@ -131,7 +131,7 @@ def restart_daemon():
     try:
         # Comando per riavviare il demone odr-dabmux
         # Nota: in produzione, potrebbe essere necessario utilizzare sudo
-        subprocess.run(['systemctl', 'restart', 'odr-dabmux'], check=True)
+        subprocess.run(['systemctl', 'restart', 'dabmux'], check=True)
         return jsonify({"success": True})
     except subprocess.CalledProcessError as e:
         return jsonify({"success": False, "error": str(e)})

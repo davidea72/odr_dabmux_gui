@@ -1,9 +1,16 @@
 {
-  "_comment": "Generated at 2025-04-17T09:31:30.778Z by odr-dabmux-gui",
+  "_comment": "Generated at 2025-04-27T20:51:38.404Z by odr-dabmux-gui",
   "components": {
     "RADIO_GIULIA": {
       "service": "srv-03",
       "subchannel": "sub-03",
+      "user-applications": {
+        "userapp": "slideshow"
+      }
+    },
+    "RADIO_GIULIA2": {
+      "service": "srv-04",
+      "subchannel": "sub-04",
       "user-applications": {
         "userapp": "slideshow"
       }
@@ -18,13 +25,6 @@
     "time": {
       "service": "srv-02",
       "subchannel": "sub-02",
-      "user-applications": {
-        "userapp": "slideshow"
-      }
-    },
-    "RADIO_GIULIA2": {
-      "service": "srv-04",
-      "subchannel": "sub-04",
       "user-applications": {
         "userapp": "slideshow"
       }
@@ -49,15 +49,7 @@
   "outputs": {
     "edi": {
       "destinations": {
-        "tcp": {
-          "protocol": "tcp",
-          "listenport": 8951
-        },
         "udp multicast": {
-          "protocol": "tcp",
-          "listenport": 8951
-        },
-        "udp unicast": {
           "protocol": "tcp",
           "listenport": 8951
         }

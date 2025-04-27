@@ -1,0 +1,15 @@
+[Unit]
+Description=dab mux web gui daemon
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=dab
+ExecStart=/usr/bin/python3 /home/dab/odr_dabmux_gui/odr_dabmux_gui/odr-dabmux-web-interface.py
+
+[Install]
+WantedBy=multi-user.target
+

@@ -1,0 +1,14 @@
+[Unit]
+Description=dab mux daemon
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+ExecStart=/usr/local/bin/odr-dabmux /home/odr/odr_dabmux_gui/odr_dabmux_gui/config.json
+
+[Install]
+WantedBy=multi-user.target

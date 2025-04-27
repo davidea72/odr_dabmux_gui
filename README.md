@@ -32,13 +32,11 @@ followed by this command
 
 to see the output from the above daemon
 
-# todo
-
-a web page to manage user  
-add a selection for the protection profile A/B
-
-
 **journalctl -f -xeu dabmux**  
 **journalctl -f -xeu odr_dabmux_gui**  
 
-journalctl -f -xeu odr_dabmux_gui
+# todo
+
+a web page to manage user  
+add a selection for the protection profile A/B  
+
